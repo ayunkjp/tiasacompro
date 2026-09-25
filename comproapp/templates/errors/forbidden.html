@@ -1,0 +1,12 @@
+{% extends "master/base.html" %}
+
+{% block content %}
+<div class="alert alert-danger mt-4">
+  <h4 class="alert-heading">Akses Ditolak</h4>
+  <p>Anda Tidak Memiliki Akses</p>
+  <hr>
+  <a href="{% url 'create_paket_soal' %}" class="btn btn-secondary">
+    ← Kembali
+  </a>
+</div>
+{% endblock %}
