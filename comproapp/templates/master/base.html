@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    {% include 'master/header.html' %}
+</head>
+<body class="light-mode"> <div class="wrapper">
+        {% include 'master/sidebar.html' %}
+        <div id="content">
+            {% include 'master/navbar.html' %}
+            <main class="main-body">
+                {% block content %}{% endblock %}
+            </main>
+            {% include 'master/footer.html' %}
+        </div>
+    </div>
+    {% include 'master/js.html' %}
+    {% block add_js %} {% endblock add_js %}
+</body>
+</html>

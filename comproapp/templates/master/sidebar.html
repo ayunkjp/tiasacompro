@@ -1,0 +1,266 @@
+{% load static %}
+{% load role_tags %}
+
+<nav id="sidebar">
+    <!-- HEADER -->
+    <div class="sidebar-header d-flex align-items-center justify-content-center">
+        <div class="header-content text-center">
+            <i class="bi bi-shield-check fs-3 mb-1 d-block text-primary"></i>
+            <span class="fw-bold brand-text">SIMUTU</span>
+        </div>
+    </div>
+
+    <div class="sidebar-menu">
+        <!-- ========================================== -->
+        <!-- DASHBOARD UTAMA (SEMUA USER TERINTEGRASI)  -->
+        <!-- ========================================== -->
+        <div class="menu-section pt-2">
+            <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>University Dashboard</span>
+            </a>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- GROUP A: MASTER DATA & KONFIGURASI SISTEM   -->
+        <!-- HANYA UNTUK: SUPER_ADMIN & BPM_GPM         -->
+        <!-- ========================================== -->
+        {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM" %}
+        <div class="menu-section">
+            <a class="section-title d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse"
+               href="#masterDataMenu"
+               role="button"
+               aria-expanded="true">
+                🟢 MASTER DATA &amp; SETUP
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse show" id="masterDataMenu">
+                <a href="{% url 'organization_list' %}" class="nav-link {% if request.resolver_match.url_name == 'organization_list' %}active{% endif %}">
+                    <i class="bi bi-building"></i>
+                    <span>Organisasi &amp; Prodi</span>
+                </a>
+                <a href="{% url 'academic_period_list' %}" class="nav-link {% if request.resolver_match.url_name == 'academic_period_list' %}active{% endif %}">
+                    <i class="bi bi-calendar-range"></i>
+                    <span>Tahun Akademik</span>
+                </a>
+                <a href="{% url 'user_management_list' %}" class="nav-link {% if request.resolver_match.url_name == 'user_management_list' %}active{% endif %}">
+                    <i class="bi bi-person-gear"></i>
+                    <span>User &amp; Hak Akses</span>
+                </a>
+                <a href="{% url 'spmi_standar_list' %}" class="nav-link {% if request.resolver_match.url_name == 'spmi_standar_list' %}active{% endif %}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Master Kebijakan &amp; Standar</span>
+                </a>
+                <a href="{% url 'spmi_indikator_list' %}" class="nav-link {% if request.resolver_match.url_name == 'spmi_indikator_list' %}active{% endif %}">
+                    <i class="bi bi-list-task"></i>
+                    <span>Master Indikator Mutu</span>
+                </a>
+                <a href="{% url 'ami_auditor_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_auditor_list' %}active{% endif %}">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Master Auditor</span>
+                </a>
+                <a href="{% url 'ami_checklist_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_checklist_list' %}active{% endif %}">
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                    <span>Master Checklist Audit</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ========================================== -->
+        <!-- GROUP B: TRANSAKSI & OPERASIONAL MUTU      -->
+        <!-- ACCESSIBLE BASED ON SPECIFIC ROLES         -->
+        <!-- ========================================== -->
+        <div class="menu-section">
+            <a class="section-title d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse"
+               href="#transaksiMenu"
+               role="button"
+               aria-expanded="true">
+                🔵 TRANSAKSI &amp; PROSES MUTU
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse show" id="transaksiMenu">
+                
+                <!-- SPMI Operasional (ADMIN, BPM, AUDITEE, TIM AKREDITASI) -->
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,AUDITEE,TIM_AKREDITASI" %}
+                <a href="{% url 'spmi_target_list' %}" class="nav-link {% if request.resolver_match.url_name == 'spmi_target_list' %}active{% endif %}">
+                    <i class="bi bi-bullseye"></i>
+                    <span>Penetapan Target Kinerja</span>
+                </a>
+                <a href="{% url 'spmi_capaian_list' %}" class="nav-link {% if request.resolver_match.url_name == 'spmi_capaian_list' %}active{% endif %}">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Pengukuran &amp; Capaian Mutu</span>
+                </a>
+                {% endif %}
+
+                <!-- AMI Operasional (ADMIN, BPM, AUDITOR, AUDITEE) -->
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,AUDITOR_MUTU,AUDITEE" %}
+                <a href="{% url 'ami_cycle_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_cycle_list' %}active{% endif %}">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span>Pelaksanaan Audit (Siklus AMI)</span>
+                </a>
+                
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,AUDITOR_MUTU" %}
+                <a href="{% url 'ami_session_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_session_list' %}active{% endif %}">
+                    <i class="bi bi-pencil-square"></i>
+                    <span>Penilaian / Scoring Audit</span>
+                </a>
+                {% endif %}
+
+                <a href="{% url 'ami_finding_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_finding_list' %}active{% endif %}">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Temuan Audit (KTS/OB)</span>
+                </a>
+                <a href="{% url 'ami_followup_list' %}" class="nav-link {% if request.resolver_match.url_name == 'ami_followup_list' %}active{% endif %}">
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span>Tindak Lanjut &amp; PTK</span>
+                </a>
+                {% endif %}
+
+                <!-- RTM (ADMIN, BPM, PIMPINAN_UNIVERSITAS) -->
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,PIMPINAN_UNIVERSITAS" %}
+                <a href="{% url 'rtm_list' %}" class="nav-link {% if request.resolver_match.url_name == 'rtm_list' %}active{% endif %}">
+                    <i class="bi bi-people"></i>
+                    <span>Rapat Tinjauan Manajemen (RTM)</span>
+                </a>
+                {% endif %}
+
+                <!-- Akreditasi & Evidence (ADMIN, BPM, TIM AKREDITASI, AUDITEE) -->
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,TIM_AKREDITASI,AUDITEE" %}
+                <a href="{% url 'akreditasi_list' %}" class="nav-link {% if request.resolver_match.url_name == 'akreditasi_list' %}active{% endif %}">
+                    <i class="bi bi-patch-check"></i>
+                    <span>Assessment Akreditasi</span>
+                </a>
+                <a href="{% url 'document_repository_list' %}" class="nav-link {% if request.resolver_match.url_name == 'document_repository_list' %}active{% endif %}">
+                    <i class="bi bi-folder-check"></i>
+                    <span>Upload &amp; Evidence Repository</span>
+                </a>
+                {% endif %}
+
+                <!-- Risiko & Pengaduan (ADMIN, BPM, MANAJEMEN_RISIKO, AUDITEE) -->
+                {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,MANAJEMEN_RISIKO,AUDITEE" %}
+                <a href="{% url 'risk_complaint_list' %}" class="nav-link {% if request.resolver_match.url_name == 'risk_complaint_list' %}active{% endif %}">
+                    <i class="bi bi-shield-exclamation"></i>
+                    <span>Register Risiko &amp; Complaint</span>
+                </a>
+                <a href="{% url 'survey_outcome_list' %}" class="nav-link {% if request.resolver_match.url_name == 'survey_outcome_list' %}active{% endif %}">
+                    <i class="bi bi-ui-checks-grid"></i>
+                    <span>Survei &amp; Outcome Tracer</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- GROUP C: GOVERNANCE, INTEGRASI & AI        -->
+        <!-- HANYA UNTUK: SUPER_ADMIN & BPM_GPM         -->
+        <!-- ========================================== -->
+        {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM" %}
+        <div class="menu-section mb-2">
+            <a class="section-title d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse"
+               href="#systemMenu"
+               role="button"
+               aria-expanded="true">
+                🟣 GOVERNANCE &amp; SYSTEM
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse show" id="systemMenu">
+                <a href="{% url 'system_governance_list' %}" class="nav-link {% if request.resolver_match.url_name == 'system_governance_list' %}active{% endif %}">
+                    <i class="bi bi-diagram-2"></i>
+                    <span>Persetujuan Workflow &amp; Log</span>
+                </a>
+                <a href="{% url 'system_integration_list' %}" class="nav-link {% if request.resolver_match.url_name == 'system_integration_list' %}active{% endif %}">
+                    <i class="bi bi-cpu"></i>
+                    <span>Sync SIAKAD &amp; AI Assistant</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ========================================== -->
+        <!-- GROUP D: REPORTS & SYSTEM ANALYTICS        -->
+        <!-- UNTUK: SUPER_ADMIN, BPM_GPM, PIMPINAN      -->
+        <!-- ========================================== -->
+        {% if request.user|has_any_group:"SUPER_ADMIN,BPM_GPM,PIMPINAN_UNIVERSITAS" %}
+        <div class="menu-section mb-4">
+            <a class="section-title d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse"
+               href="#reportsMenu"
+               role="button"
+               aria-expanded="true">
+                🟣 REPORTS &amp; SYSTEM
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse show" id="reportsMenu">
+                <a href="{% url 'reports_dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'reports_dashboard' %}active{% endif %}">
+                    <i class="bi bi-pie-chart"></i>
+                    <span>Dashboard Laporan &amp; Log</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</nav>
+
+<style>
+  #sidebar {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-right: 1px solid #e2e8f0;
+  }
+  .sidebar-header {
+      height: 75px;
+      padding: 15px;
+      border-bottom: 1px solid #f1f5f9;
+  }
+  .brand-text {
+      letter-spacing: 2px;
+      font-size: 0.95rem;
+      color: #0a1e3c;
+  }
+  .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 8px 18px;
+      color: #475569;
+      text-decoration: none;
+      font-size: 0.82rem;
+      border-radius: 4px;
+      margin: 2px 10px;
+      transition: 0.2s ease;
+  }
+  .nav-link i {
+      min-width: 26px;
+      font-size: 0.95rem;
+  }
+  .nav-link:hover {
+      background: #f1f5f9;
+      color: #0a1e3c;
+  }
+  .nav-link.active {
+      background: #0a1e3c !important;
+      color: #ffffff !important;
+      font-weight: 600;
+  }
+  .nav-link.active i {
+      color: #ffffff;
+  }
+  .section-title {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #64748b;
+      padding: 14px 20px 4px 20px;
+      letter-spacing: 1.2px;
+      cursor: pointer;
+  }
+  .section-title[aria-expanded="true"] i {
+      transform: rotate(180deg);
+  }
+</style>

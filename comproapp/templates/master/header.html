@@ -1,0 +1,181 @@
+
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | SIMUTU</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root {
+    --primary-color: #1a1a1a; /* Hitam elegan */
+    --accent-color: #6c757d;
+    --sidebar-bg: #ffffff;
+    --sidebar-color: #444444;
+    --body-bg: #f4f7f6;
+    --topbar-bg: #ffffff;
+    --radius: 8px;
+    --shadow-soft: 0 2px 15px rgba(0,0,0,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-width: 260px;
+}
+
+body {
+    background: var(--body-bg);
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+/* Layout Structure */
+.wrapper { display: flex; align-items: stretch; width: 100%; }
+#content { width: 100%; min-height: 100vh; transition: var(--transition); }
+
+  /* CSS Dasar Sidebar */
+  #sidebar {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--sidebar-bg); /* Menggunakan variabel dari header Anda */
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+  }
+
+  /* Header dengan efek gradien tipis */
+  .sidebar-header {
+      height: 80px;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* Typography & Icon Styling */
+  .brand-text {
+      letter-spacing: 3px;
+      font-size: 0.85rem;
+      color: var(--primary-color);
+      text-transform: uppercase;
+  }
+
+  /* Nav Link - Menambahkan hover efek yang lebih smooth */
+  .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 25px;
+      color: #64748b;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent; /* Tambahkan aksen kiri */
+      margin: 2px 10px;
+      border-radius: 6px;
+  }
+
+  .nav-link i {
+      font-size: 1.1rem;
+      min-width: 35px;
+      opacity: 0.8;
+  }
+
+  .nav-link:hover {
+      background: rgba(0,0,0,0.04);
+      color: var(--primary-color);
+      padding-left: 30px; /* Sedikit geser saat hover */
+  }
+
+  /* Efek Active Link yang elegan */
+  .nav-link.active {
+      background: var(--primary-color) !important;
+      color: #ffffff !important;
+      border-left-color: #fff;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+  }
+
+  /* Section Title - Dibuat lebih clean */
+  .section-title {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #94a3b8;
+      padding: 25px 25px 10px 25px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+  }
+
+  .section-title i {
+      font-size: 0.7rem;
+      transition: 0.3s ease;
+  }
+
+  /* Indikator Panah */
+  .section-title[aria-expanded="true"] i {
+      transform: rotate(180deg);
+      color: var(--primary-color);
+  }
+
+  /* Animasi saat sidebar menjadi MINI */
+  #sidebar.mini {
+      min-width: 70px;
+  }
+
+  #sidebar.mini .brand-text,
+  #sidebar.mini .section-title,
+  #sidebar.mini .nav-link span {
+      display: none !important;
+  }
+
+  #sidebar.mini .nav-link {
+      justify-content: center;
+      margin: 5px;
+      padding: 12px 0 !important;
+      border-left: none;
+  }
+
+  #sidebar.mini .nav-link i {
+      margin: 0 !important;
+      text-align: center;
+  }
+
+  /* Dark Mode Support (Jika user mengaktifkan dark mode) */
+  body.dark-mode #sidebar {
+      border-right: 1px solid #333;
+  }
+  body.dark-mode .nav-link:hover {
+      background: rgba(255,255,255,0.05);
+  }
+
+.nav-link i { font-size: 1.2rem; margin-right: 15px; }
+#sidebar.mini .nav-link i { margin-right: 0; }
+#sidebar.mini .nav-link span, #sidebar.mini .sidebar-header span { display: none; }
+
+.nav-link:hover, .nav-link.active {
+    background: #f8f9fa;
+    color: var(--primary-color);
+}
+
+.nav-link.active { background: var(--primary-color); color: white !important; }
+
+/* Dashboard Cards */
+.card-custom {
+    background: white;
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: var(--shadow-soft);
+    padding: 24px;
+    transition: transform 0.2s;
+}
+.card-custom:hover { transform: translateY(-5px); }
+
+/* Topbar Custom */
+.topbar {
+    height: 70px;
+    background: var(--topbar-bg);
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+</style>

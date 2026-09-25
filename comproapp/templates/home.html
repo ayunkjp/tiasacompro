@@ -1,0 +1,2043 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TIASA IT Solutions | Making Ideas Possible</title>
+        <meta name="description" content="TIASA IT Solutions - From Business Process to Digital Systems, Infrastructure and Integrated Technology.">
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+        
+        <!-- Tailwind CSS & Lucide Icons -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            tiasa: {
+                                navy: '#0B1528',
+                                dark: '#050B14',
+                                gold: '#C5A059',
+                                'gold-light': '#D4AF37',
+                                cream: '#FAF8F5',
+                                soft: '#F0ECE1',
+                                surface: '#111E36'
+                            }
+                        },
+                        fontFamily: {
+                            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                            serif: ['"Playfair Display"', 'serif']
+                        }
+                    }
+                }
+            }
+        </script>
+        
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                background-color: #FAF8F5;
+                color: #0B1528;
+                overflow-x: hidden;
+            }
+            
+            /* Modern Grid & Glow Effects */
+            .grid-background {
+                background-image: 
+                    radial-gradient(rgba(197, 160, 89, 0.12) 1px, transparent 1px),
+                    linear-gradient(to right, rgba(11, 21, 40, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(11, 21, 40, 0.03) 1px, transparent 1px);
+                background-size: 32px 32px, 32px 32px, 32px 32px;
+            }
+            .hero-glow-1 {
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(197, 160, 89, 0.15) 0%, rgba(250, 248, 245, 0) 70%);
+                filter: blur(60px);
+                pointer-events: none;
+            }
+            
+            /* Navbar Glassmorphism */
+            .navbar-scrolled {
+                background: rgba(250, 248, 245, 0.85);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+                box-shadow: 0 4px 20px -2px rgba(11, 21, 40, 0.05);
+            }
+            
+            /* Custom Scroll Reveal Animation */
+            .reveal {
+                opacity: 0;
+                transform: translateY(24px);
+                transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                will-change: opacity, transform;
+            }
+            .reveal.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #FAF8F5;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #C5A059;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body class="antialiased selection:bg-tiasa-gold selection:text-white">
+
+        <!-- =========================================================
+             NAVBAR
+        ========================================================== -->
+        <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="h-20 flex items-center justify-between">
+                    <!-- LOGO -->
+                    <a href="#home" class="shrink-0 focus:outline-none group flex items-center gap-2">
+                        <img src="{% static 'logo.png' %}" alt="TIASA IT Solutions" class="h-10 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-105">
+                    </a>
+
+                    <!-- DESKTOP MENU -->
+                    <div class="hidden lg:flex items-center gap-1 xl:gap-2 bg-white/70 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/80 shadow-sm">
+                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#profil" class="nav-link">Profil</a>
+                        <a href="#personel" class="nav-link">Personel</a>
+                        <a href="#expertise" class="nav-link">Expertise</a>
+                        <a href="#portofolio" class="nav-link">Portofolio</a>
+                        <a href="#mitra" class="nav-link">Mitra</a>
+                        <a href="#magang" class="nav-link">Magang</a>
+                        <a href="#karir" class="nav-link">Karir</a>
+                        <a href="#kontak" class="nav-link">Kontak</a>
+                    </div>
+
+                    <!-- WHATSAPP BUTTON (DESKTOP) -->
+                    <div class="hidden lg:flex items-center">
+                        <a href="https://wa.me/6282116096649" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-semibold tracking-wide transition-all duration-300 hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-600/20 active:scale-95">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            <span>Hubungi via WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <!-- MOBILE MENU BUTTON -->
+                    <button id="menuButton" type="button" aria-label="Toggle Navigation Menu" class="lg:hidden p-2.5 rounded-xl bg-white border border-slate-200 text-tiasa-navy hover:bg-slate-50 transition focus:outline-none">
+                        <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+                    </button>
+                </nav>
+
+                <!-- MOBILE MENU DROPDOWN -->
+                <div id="mobileMenu" class="lg:hidden hidden transition-all duration-300 ease-in-out pb-6">
+                    <div class="bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-2xl p-5 shadow-2xl space-y-2 mt-2">
+                        <a href="#home" class="mobile-link">Home</a>
+                        <a href="#profil" class="mobile-link">Profil</a>
+                        <a href="#personel" class="mobile-link">Personel</a>
+                        <a href="#expertise" class="mobile-link">Expertise</a>
+                        <a href="#portofolio" class="mobile-link">Portofolio</a>
+                        <a href="#mitra" class="mobile-link">Mitra</a>
+                        <a href="#magang" class="mobile-link">Magang</a>
+                        <a href="#karir" class="mobile-link">Karir</a>
+                        <a href="#kontak" class="mobile-link">Kontak</a>
+                        <div class="pt-3 border-t border-slate-100">
+                            <a href="https://wa.me/6282116096649" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-md hover:bg-emerald-700 transition">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                Hubungi via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- =========================================================
+             HERO
+        ========================================================== -->
+        <section id="home" class="relative min-h-screen flex items-center pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden grid-background">
+            <div class="hero-glow-1 -top-20 -right-20"></div>
+            <div class="hero-glow-1 -bottom-20 -left-20"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- HERO CONTENT -->
+                    <div class="lg:col-span-7 reveal">
+                        <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-tiasa-gold/10 border border-tiasa-gold/20 mb-6">
+                            <span class="w-2 h-2 rounded-full bg-tiasa-gold animate-pulse"></span>
+                            <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">IT Solutions Partner</span>
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-tiasa-navy leading-[1.1]">
+                            Making <span class="font-serif italic font-normal text-tiasa-gold">Ideas</span> Possible.
+                        </h1>
+                        
+                        <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+                            From business process to digital systems, infrastructure, and integrated technology. Kami membantu organisasi mengubah kebutuhan menjadi solusi teknologi yang nyata.
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap sm:flex-nowrap gap-4">
+                            <a href="#expertise" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-full bg-tiasa-navy px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-tiasa-navy/20 hover:bg-tiasa-gold hover:shadow-tiasa-gold/20 transition-all duration-300 group">
+                                <span>Explore Our Expertise</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                            <a href="#portofolio" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-full bg-white border border-slate-300 px-7 py-4 text-sm font-semibold text-tiasa-navy shadow-sm hover:border-tiasa-gold hover:text-tiasa-gold transition-all duration-300">
+                                <span>View Portfolio</span>
+                            </a>
+                        </div>
+
+                        <!-- STATS -->
+                        <div class="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-6 border-t border-slate-200/80 pt-8">
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-extrabold text-tiasa-navy">360°</div>
+                                <div class="mt-1 text-xs sm:text-sm font-medium text-slate-500">IT Capability</div>
+                            </div>
+                            <div class="border-l border-slate-200/80 pl-4 sm:pl-6">
+                                <div class="text-2xl sm:text-3xl font-extrabold text-tiasa-navy">End-to-End</div>
+                                <div class="mt-1 text-xs sm:text-sm font-medium text-slate-500">Technology</div>
+                            </div>
+                            <div class="border-l border-slate-200/80 pl-4 sm:pl-6">
+                                <div class="text-2xl sm:text-3xl font-extrabold text-tiasa-gold">01</div>
+                                <div class="mt-1 text-xs sm:text-sm font-medium text-slate-500">Technology Partner</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HERO IMAGE -->
+                    <div class="lg:col-span-5 reveal">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-tiasa-gold to-tiasa-navy rounded-3xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
+                            
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border border-white/20 aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5]">
+                                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="IT Infrastructure" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-tiasa-navy/90 via-tiasa-navy/30 to-transparent"></div>
+                                
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <span class="text-xs font-bold uppercase tracking-widest text-tiasa-gold">Technology</span>
+                                    <h3 class="mt-1 text-xl sm:text-2xl font-bold">From Ideas to Systems.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PHILOSOPHY
+        ========================================================== -->
+        <section class="bg-tiasa-navy py-20 lg:py-28 text-white relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal relative z-10">
+                <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Our Philosophy</span>
+                <h2 class="mt-4 font-serif italic text-3xl sm:text-5xl lg:text-6xl font-medium leading-tight text-tiasa-cream">
+                    From Ideas to Systems, <br class="hidden sm:block">
+                    <span class="text-tiasa-gold font-normal">From Systems to Growth.</span>
+                </h2>
+                <p class="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    Kami percaya teknologi bukan sekadar membangun aplikasi. Teknologi adalah tentang memahami kebutuhan, menyusun proses, membangun sistem, dan menciptakan nilai yang berkelanjutan.
+                </p>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PROFIL
+        ========================================================== -->
+        <section id="profil" class="py-20 lg:py-28 bg-tiasa-cream relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- IMAGE -->
+                    <div class="relative reveal order-2 lg:order-1">
+                        <div class="rounded-2xl overflow-hidden shadow-xl border border-slate-200/60 aspect-video lg:aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" alt="Technology" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        </div>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="reveal order-1 lg:order-2">
+                        <div class="inline-flex items-center gap-2">
+                            <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Profil</span>
+                            <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                        </div>
+                        
+                        <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight leading-tight">
+                            One team. <br class="hidden sm:block"><span class="font-serif italic font-normal text-tiasa-gold">Multiple capabilities.</span>
+                        </h2>
+                        
+                        <p class="mt-6 text-slate-600 leading-relaxed">
+                            TIASA IT Solutions merupakan perusahaan teknologi yang berfokus pada pengembangan sistem informasi, transformasi proses bisnis, infrastruktur IT, dan solusi teknologi terintegrasi.
+                        </p>
+                        <p class="mt-4 text-slate-600 leading-relaxed">
+                            Kami menggabungkan berbagai disiplin teknologi dalam satu ekosistem kerja: software development, mobile development, network engineering, infrastructure, database, system analysis, IT governance, hingga integrated surveillance.
+                        </p>
+
+                        <div class="mt-8 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6">
+                            <div class="border-l-2 border-tiasa-gold pl-4">
+                                <div class="font-bold text-tiasa-navy text-lg">Technology</div>
+                                <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Driven</div>
+                            </div>
+                            <div class="border-l-2 border-tiasa-gold pl-4">
+                                <div class="font-bold text-tiasa-navy text-lg">Business</div>
+                                <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Focused</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PERSONEL (DISESUAIKAN SEPERTI CONTOH GAMBAR)
+        ========================================================== -->
+        <section id="personel" class="py-20 lg:py-28 bg-slate-50 border-t border-slate-200/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="max-w-3xl mx-auto text-center reveal mb-12">
+                    <div class="inline-flex items-center gap-2 justify-center">
+                        <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Leadership & Experts</span>
+                        <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                    </div>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                        Profil Personel & Tim Ahli
+                    </h2>
+                    <p class="mt-4 text-slate-500 leading-relaxed">
+                        Dipimpin oleh jajaran pimpinan yang visioner dan didukung oleh praktisi ahli di bidang teknologi informasi.
+                    </p>
+                </div>
+
+                <!-- 1. CEO CARD (FEATURED TOP BANNER DARK CARD) -->
+                <div class="max-w-5xl mx-auto bg-tiasa-navy rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden mb-10 reveal group border border-slate-800">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 relative z-10">
+                        
+                        <!-- Foto CEO Diperbesar & Diambil dari Static -->
+                        <div class="shrink-0">
+                            <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-tiasa-gold/40 shadow-xl bg-slate-800">
+                                <img src="{% static 'cf.jpeg' %}" alt="Dwi Agriyanto" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                        </div>
+
+                        <!-- Deskripsi Profil CEO -->
+                        <div class="flex-1 text-center sm:text-left">
+                            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider text-tiasa-gold border border-white/10 mb-3">
+                                DevOps · System Engineering · System Administration
+                            </span>
+                            <h3 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Dwi Agriyanto</h3>
+                            <p class="text-xs sm:text-sm font-bold uppercase tracking-wider text-tiasa-gold mt-1">Co-Founder</p>
+                            <p class="text-slate-300 text-sm mt-3 leading-relaxed max-w-2xl">
+                                Profesional teknologi yang berfokus pada **DevOps, System Engineering, dan System Administration**, dengan keahlian dalam membangun dan mengelola infrastruktur IT yang reliable, secure, dan scalable untuk mendukung keberlangsungan serta pertumbuhan bisnis.
+                            </p>
+                        </div>
+
+                        <!-- Tombol Aksi Kanan Atas -->
+                        <div class="self-center sm:self-start">
+                            <a href="#kontak" aria-label="Profil CEO" class="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-tiasa-gold hover:border-tiasa-gold hover:text-tiasa-navy transition-all duration-300 shadow-md">
+                                <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-5xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden mb-10 reveal group border border-slate-800">
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 relative z-10">
+        
+        <!-- Foto CEO -->
+        <div class="shrink-0">
+            <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-tiasa-gold/40 shadow-xl bg-slate-800">
+                <img 
+                    src="{% static 'cto.png' %}" 
+                    alt="Ir. Harry Ramdhani Hadianto, S.T., M.Kom., ITS." 
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                >
+            </div>
+        </div>
+
+        <!-- Deskripsi Profil CEO -->
+        <div class="flex-1 text-center sm:text-left">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider text-tiasa-gold border border-white/10 mb-3">
+                IT Solution Architect & Digital Transformation Specialist
+            </span>
+
+            <h3 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+                Ir. Harry Ramdhani Hadianto, S.T., M.Kom., ITS.
+            </h3>
+
+            <p class="text-xs sm:text-sm font-bold uppercase tracking-wider text-tiasa-gold mt-1">
+                CTO - Chief Technology Officer
+            </p>
+
+            <p class="text-slate-300 text-sm mt-3 leading-relaxed max-w-2xl">
+                Sebagai Software Engineering & Digital Transformation Specialist, 
+                berfokus pada pengembangan solusi perangkat lunak, DevOps, rekayasa sistem, 
+                infrastruktur TI, serta rekayasa ulang proses bisnis untuk mendorong 
+                transformasi digital yang efektif dan terintegrasi.
+            </p>
+        </div>
+
+    </div>
+</div>
+                <!-- 2. GRID CARD PERSONEL LAINNYA (PORTRAIT CARDS) -->
+                {% comment %}  {% endcomment %}
+            </div>
+        </section>
+
+        <!-- =========================================================
+             EXPERTISE
+        ========================================================== -->
+        <section id="expertise" class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- HEADER -->
+                <div class="max-w-3xl reveal">
+                    <div class="inline-flex items-center gap-2">
+                        <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Our Expertise</span>
+                        <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                    </div>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                        Technology capabilities built around your needs.
+                    </h2>
+                    <p class="mt-4 text-slate-500 leading-relaxed">
+                        Dari business process hingga aplikasi, database, infrastructure, jaringan, surveillance, dan pengadaan teknologi. Kami membangun dan mengintegrasikan ekosistem IT secara end-to-end.
+                    </p>
+                </div>
+
+                <!-- GRID CARDS -->
+                <div class="mt-12 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- SOFTWARE -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="code-2" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Software & Web</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                Web application, information system, enterprise application, API, backend, frontend, dan custom software.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Development
+                        </div>
+                    </article>
+
+                    <!-- MOBILE -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="smartphone" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Mobile Development</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                Android application, mobile platform, field application, operational application, dan API integration.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Mobile
+                        </div>
+                    </article>
+
+                    <!-- INFRASTRUCTURE -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="server" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">IT Infrastructure</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                Server, virtualization, cloud, storage, backup, disaster recovery, monitoring, dan architecture.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Infrastructure
+                        </div>
+                    </article>
+
+                    <!-- NETWORK -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="network" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Network Engineering</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                LAN, WAN, Wi-Fi, routing, switching, firewall, VPN, monitoring, dan network security.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Networking
+                        </div>
+                    </article>
+
+                    <!-- DATABASE -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="database" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Database & Data</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                DBA, database design, optimization, backup, recovery, migration, high availability, dan integration.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Data Engineering
+                        </div>
+                    </article>
+
+                    <!-- BUSINESS PROCESS -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="workflow" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Business Process</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                Business process analysis, reengineering, system analysis, workflow, SOP, dan digital transformation.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            BPR & Analysis
+                        </div>
+                    </article>
+
+                    <!-- CCTV -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="cctv" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">Integrated CCTV</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                IP camera, NVR, VMS, centralized monitoring, storage, deployment, dan surveillance integration.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Surveillance
+                        </div>
+                    </article>
+
+                    <!-- PROCUREMENT -->
+                    <article class="bg-tiasa-cream/50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-white group reveal">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-tiasa-navy text-tiasa-gold flex items-center justify-center mb-6 group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition-colors">
+                                <i data-lucide="package-check" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-tiasa-navy">IT Procurement</h3>
+                            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                                Server, PC, laptop, network equipment, firewall, storage, CCTV, NVR, UPS, rack, dan perangkat IT.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200/60 text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                            Technology Supply
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             END-TO-END PROCESS
+        ========================================================== -->
+        <section class="py-20 lg:py-28 bg-tiasa-cream border-y border-slate-200/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="max-w-3xl reveal">
+                    <div class="inline-flex items-center gap-2">
+                        <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">End-to-End Technology</span>
+                        <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                    </div>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                        One technology partner. Multiple capabilities.
+                    </h2>
+                    <p class="mt-4 text-slate-600 leading-relaxed">
+                        Kebutuhan teknologi sering kali saling terhubung. Karena itu kami melihat kebutuhan secara menyeluruh, bukan hanya dari satu sisi.
+                    </p>
+                </div>
+
+                <!-- PROCESS STEPS -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative">
+                    
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-navy text-tiasa-gold flex items-center justify-center font-bold text-sm mb-4">01</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Understand</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Memahami kebutuhan dan proses bisnis.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-navy text-tiasa-gold flex items-center justify-center font-bold text-sm mb-4">02</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Analyze</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Analisis proses, requirement dan architecture.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-navy text-tiasa-gold flex items-center justify-center font-bold text-sm mb-4">03</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Design</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Merancang sistem, infrastructure dan experience.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-navy text-tiasa-gold flex items-center justify-center font-bold text-sm mb-4">04</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Build</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Develop, integrate, deploy dan configure.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-navy text-tiasa-gold flex items-center justify-center font-bold text-sm mb-4">05</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Secure</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Memastikan reliability, security dan continuity.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-tiasa-gold/50 shadow-sm flex flex-col justify-between hover:border-tiasa-gold transition duration-300 reveal">
+                        <div>
+                            <div class="w-10 h-10 rounded-full bg-tiasa-gold text-white flex items-center justify-center font-bold text-sm mb-4">06</div>
+                            <h3 class="font-bold text-tiasa-navy text-lg">Grow</h3>
+                            <p class="mt-2 text-xs text-slate-500 leading-relaxed">Support, improve, dan scale bersama kebutuhan.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PORTFOLIO
+        ========================================================== -->
+        {% comment %} <section id="portofolio" class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
+                    <div>
+                        <div class="inline-flex items-center gap-2">
+                            <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Portfolio</span>
+                            <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                        </div>
+                        <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                            Selected works.
+                        </h2>
+                    </div>
+                    <a href="#kontak" class="inline-flex items-center gap-2 text-sm font-bold text-tiasa-navy hover:text-tiasa-gold transition group">
+                        <span>Discuss your project</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                    </a>
+                </div>
+
+                <div class="mt-12 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- PROJECT 1 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=85" alt="Point of Sale System" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Business System</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">Point of Sale</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Sistem transaksi, inventory, reporting dan operational management.</p>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 2 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=85" alt="Information System" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Information System</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">Enterprise Information System</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Sistem informasi terintegrasi untuk kebutuhan organisasi.</p>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 3 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=85" alt="Mobile Application" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Mobile Application</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">Mobile Digital Platform</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Aplikasi mobile untuk layanan dan operasional.</p>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 4 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1000&q=85" alt="CCTV System" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Surveillance</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">Integrated CCTV & VMS</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Centralized surveillance, VMS, NVR dan monitoring.</p>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 5 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=85" alt="Infrastructure" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Infrastructure</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">IT Infrastructure</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Server, network, storage, monitoring dan deployment.</p>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 6 -->
+                    <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+                        <div class="aspect-video overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=85" alt="Business Process" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">Business Transformation</span>
+                            <h3 class="mt-1 text-xl font-bold text-tiasa-navy">Business Process Reengineering</h3>
+                            <p class="mt-2 text-sm text-slate-500 line-clamp-2">Analisis dan transformasi proses bisnis berbasis teknologi.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section> {% endcomment %}
+        <section id="portofolio" class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- HEADER -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
+            <div>
+                <div class="inline-flex items-center gap-2">
+                    <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">
+                        Portfolio
+                    </span>
+                    <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+                </div>
+
+                <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                    Selected works.
+                </h2>
+
+                <p class="mt-4 max-w-2xl text-slate-500 leading-relaxed">
+                    Solusi teknologi yang kami kembangkan untuk mendukung
+                    transformasi digital, operasional bisnis, infrastruktur,
+                    pendidikan, pemerintahan, hingga enterprise system.
+                </p>
+            </div>
+
+            <a href="#kontak"
+               class="inline-flex items-center gap-2 text-sm font-bold text-tiasa-navy hover:text-tiasa-gold transition group">
+                <span>Discuss your project</span>
+                <i data-lucide="arrow-up-right"
+                   class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+            </a>
+        </div>
+
+
+        <!-- PORTFOLIO GRID -->
+        <div class="mt-12 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 01 - ENTERPRISE INFORMATION SYSTEM -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=85"
+                        alt="Enterprise Information System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-tiasa-navy/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Enterprise System
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Sistem Informasi Akademik & Keuangan
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem informasi terintegrasi untuk mendukung proses
+                        akademik dan pengelolaan keuangan dalam satu ekosistem
+                        informasi.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            System Integration
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Database
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 02 - LAPAS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1000&q=85"
+                        alt="Government Information System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Government System
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Sistem Informasi Pengajuan Pembebasan
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem informasi terintegrasi untuk mendukung proses
+                        pengajuan pembebasan pada Lapas Kelas IIB Tasikmalaya.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Workflow
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Information System
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 03 - KOPERASI LAPAS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=85"
+                        alt="Cooperative Information System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Information System
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Sistem Informasi Koperasi Lapas
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem untuk mendukung pengelolaan data, transaksi,
+                        administrasi dan pelaporan koperasi pada Lapas Kelas IIB
+                        Tasikmalaya.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Transaction
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Database
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 04 - INVENTORY POS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=85"
+                        alt="Inventory and Point of Sale"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Business System
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Inventory & Point of Sale
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem inventory dan Point of Sale untuk mendukung
+                        pengelolaan stok, transaksi dan kebutuhan operasional
+                        bisnis PT. Sinar Mandiri.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Inventory
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            POS
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 05 - HRIS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+                        alt="HRIS Human Resource Information System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Enterprise Application
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        HRIS
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Human Resource Information System untuk mendukung
+                        pengelolaan informasi dan kebutuhan administrasi sumber
+                        daya manusia.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            HR
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Web Application
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 06 - E LEARNING -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1000&q=85"
+                        alt="E-Learning Development"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Education Technology
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        E-Learning Development
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Pengembangan platform e-learning untuk mendukung proses
+                        pembelajaran digital dan pengelolaan aktivitas belajar.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            E-Learning
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Backend
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 07 - TICKETING -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=85"
+                        alt="Ticketing System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        IT Service Management
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Ticketing System
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem ticketing untuk membantu pengelolaan permintaan
+                        layanan, support, status pekerjaan dan monitoring
+                        penyelesaian ticket.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            ITSM
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Support
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 08 - I61 -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=85"
+                        alt="i61 Phone Service Management"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Service Management
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        i61 Phone Service Management
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem manajemen layanan servis handphone yang mencakup
+                        member, service tracking, sparepart, billing dan
+                        pengelolaan operasional.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Service Center
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Billing
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 09 - HOTEL -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=85"
+                        alt="Hotel Management System"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Hospitality Technology
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Hotel Management System
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Sistem manajemen hotel yang mencakup reservation,
+                        guest management, room management, billing, payment
+                        dan integrasi akses kamar.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Hospitality
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Integration
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 10 - CCTV VMS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1000&q=85"
+                        alt="Integrated CCTV and VMS"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Security Technology
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Integrated CCTV & VMS
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Solusi video management untuk centralized monitoring,
+                        camera management, recording, storage dan pengelolaan
+                        surveillance infrastructure.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            CCTV
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            VMS
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 11 - INFRASTRUCTURE -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=85"
+                        alt="IT Infrastructure and Data Center"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        IT Infrastructure
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Data Center & Enterprise Network
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Perancangan dan dukungan infrastruktur IT meliputi
+                        data center 3-tier, enterprise network, ISP,
+                        WiFi management dan infrastructure monitoring.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Data Center
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Networking
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- ========================================================= -->
+            <!-- PROJECT 12 - BUSINESS PROCESS -->
+            <!-- ========================================================= -->
+            <article
+                class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 group reveal">
+
+                <div class="aspect-video overflow-hidden relative">
+                    <img
+                        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=85"
+                        alt="Business Process Reengineering"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="p-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-tiasa-gold">
+                        Digital Transformation
+                    </span>
+
+                    <h3 class="mt-1 text-xl font-bold text-tiasa-navy">
+                        Business Process Reengineering
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-500 line-clamp-3">
+                        Analisis, pemetaan dan transformasi proses bisnis untuk
+                        meningkatkan efektivitas proses melalui pemanfaatan
+                        teknologi informasi.
+                    </p>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Business Analysis
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-100 text-xs text-slate-600">
+                            Digital Transformation
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+
+        <!-- ============================================================= -->
+        <!-- VIEW ALL / CONTACT -->
+        <!-- ============================================================= -->
+
+        <div class="mt-14 text-center reveal">
+            <p class="text-sm text-slate-500 mb-4">
+                Membutuhkan solusi teknologi yang sesuai dengan proses bisnis Anda?
+            </p>
+
+            <a href="#kontak"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                      bg-tiasa-navy text-white text-sm font-bold
+                      hover:bg-tiasa-gold hover:text-tiasa-navy
+                      transition-all duration-300">
+
+                <span>Let's build something together</span>
+
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+        <!-- =========================================================
+             MITRA
+        ========================================================== -->
+        {% comment %} <section id="mitra" class="py-20 lg:py-28 bg-tiasa-cream border-t border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center reveal">
+                    <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Our Partners</span>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                        Growing together.
+                    </h2>
+                    <p class="mt-4 text-slate-500 leading-relaxed">
+                        Kolaborasi dengan technology partner, business partner, institusi, dan organisasi untuk menghadirkan solusi yang lebih lengkap.
+                    </p>
+                </div>
+
+                <div class="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex items-center justify-center text-center font-bold text-slate-400 hover:text-tiasa-navy hover:border-tiasa-gold transition duration-300">
+                        Technology Partner
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex items-center justify-center text-center font-bold text-slate-400 hover:text-tiasa-navy hover:border-tiasa-gold transition duration-300">
+                        Business Partner
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex items-center justify-center text-center font-bold text-slate-400 hover:text-tiasa-navy hover:border-tiasa-gold transition duration-300">
+                        Institution
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex items-center justify-center text-center font-bold text-slate-400 hover:text-tiasa-navy hover:border-tiasa-gold transition duration-300">
+                        Community
+                    </div>
+                </div>
+            </div>
+        </section> {% endcomment %}
+        <section id="mitra" class="py-20 lg:py-28 bg-tiasa-cream border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- HEADER -->
+        <div class="max-w-3xl mx-auto text-center reveal">
+
+            <div class="inline-flex items-center gap-2">
+                <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">
+                    Clients & Partners
+                </span>
+
+                <div class="w-8 h-[2px] bg-tiasa-gold"></div>
+            </div>
+
+            <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                Trusted to deliver.
+            </h2>
+
+            <p class="mt-4 text-slate-500 leading-relaxed">
+                Pengalaman kolaborasi bersama perusahaan, institusi pemerintah,
+                lembaga, organisasi, dan technology partner dalam pengembangan
+                sistem informasi, software, jaringan, infrastruktur, dan
+                transformasi digital.
+            </p>
+
+        </div>
+
+
+        <!-- CLIENT / PARTNER GRID -->
+        <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+
+
+            <!-- PT SINAR MANDIRI -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        SM
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Software
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    PT Sinar Mandiri
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    POS & Inventory System
+                </p>
+
+            </div>
+
+
+            <!-- SHAFIRA MART -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        SM
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Software
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    Shafira Mart
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    POS & Inventory System
+                </p>
+
+            </div>
+
+
+            <!-- T ZAYN NET -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        TZ
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Network
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    T Zayn Net Solution
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Network Infrastructure Development
+                </p>
+
+            </div>
+
+
+            <!-- GDE NET -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        GN
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Network
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    GDE Net Sub
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    PT Lintas Jaringan Nusantara
+                </p>
+
+                <p class="mt-2 text-xs text-slate-400">
+                    Network Infrastructure Development
+                </p>
+
+            </div>
+
+
+            <!-- FIBERSKY -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        FN
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Network
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    PT Fibersky Network
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Network Infrastructure Development
+                </p>
+
+            </div>
+
+
+            <!-- BRIN -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        BR
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Government
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    Badan Riset dan Inovasi Nasional
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Network Infrastructure Development
+                </p>
+
+                <p class="mt-2 text-xs text-slate-400">
+                    Digital Village Program
+                </p>
+
+            </div>
+
+
+            <!-- DISKOMINFO TASIKMALAYA -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        DK
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Government
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    Dinas Komunikasi dan Informatika
+                    Kota Tasikmalaya
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    System Penetration Testing
+                </p>
+
+                <p class="mt-2 text-xs text-slate-400">
+                    White Box Testing
+                </p>
+
+            </div>
+
+
+            <!-- KOPERASI JAYAMANGALA -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        KJ
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Infrastructure
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    Koperasi Jayamangala
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Network Infrastructure Development
+                </p>
+
+            </div>
+
+
+            <!-- LAPAS TASIKMALAYA -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        LP
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Government
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    Lapas Kelas IIB Tasikmalaya
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Information System Development
+                </p>
+
+                <p class="mt-2 text-xs text-slate-400">
+                    Pengajuan Pembebasan & Koperasi
+                </p>
+
+            </div>
+
+
+            <!-- PT SMART SOLUSINDO -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        SS
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Software
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    PT Smart Solusindo Enterprise
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Assessment & Information System
+                </p>
+
+                <p class="mt-2 text-xs text-slate-400">
+                    Sistem Penilaian Uji Kompetensi Keahlian
+                </p>
+
+            </div>
+
+
+            <!-- PT ASIA TRITUNGGAL -->
+            <div class="group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm
+                        hover:shadow-lg hover:border-tiasa-gold/60 transition-all duration-300 reveal">
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-navy flex items-center justify-center
+                                text-white font-extrabold text-lg shrink-0
+                                group-hover:bg-tiasa-gold group-hover:text-tiasa-navy transition">
+                        AT
+                    </div>
+
+                    <span class="text-[10px] uppercase tracking-wider font-bold
+                                 text-tiasa-gold">
+                        Infrastructure
+                    </span>
+
+                </div>
+
+                <h3 class="mt-5 font-bold text-tiasa-navy">
+                    PT Asia Tritunggal Jaya
+                </h3>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Network Infrastructure Planning
+                </p>
+
+            </div>
+
+
+            <!-- ========================================================= -->
+            <!-- COLLABORATION CTA -->
+            <!-- ========================================================= -->
+
+            <div class="bg-tiasa-navy rounded-2xl p-6 shadow-sm
+                        flex flex-col justify-between
+                        hover:shadow-lg transition-all duration-300 reveal">
+
+                <div>
+
+                    <div class="w-12 h-12 rounded-xl bg-tiasa-gold flex items-center justify-center
+                                text-tiasa-navy">
+
+                        <i data-lucide="handshake" class="w-6 h-6"></i>
+
+                    </div>
+
+                    <h3 class="mt-5 text-xl font-bold text-white">
+                        Let's Collaborate
+                    </h3>
+
+                    <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                        Kami terbuka untuk berkolaborasi dalam pengembangan
+                        software, infrastructure, network, system integration
+                        dan digital transformation.
+                    </p>
+
+                </div>
+
+                <a href="#kontak"
+                   class="mt-6 inline-flex items-center gap-2 text-sm font-bold
+                          text-tiasa-gold hover:text-white transition group">
+
+                    <span>Start a conversation</span>
+
+                    <i data-lucide="arrow-up-right"
+                       class="w-4 h-4 transition-transform
+                              group-hover:translate-x-0.5
+                              group-hover:-translate-y-0.5"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TRUST STATEMENT -->
+        <div class="mt-14 sm:mt-16 text-center reveal">
+
+            <div class="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-3
+                        text-xs font-semibold uppercase tracking-wider text-slate-400">
+
+                <span>Software Development</span>
+                <span class="hidden sm:block w-1 h-1 rounded-full bg-tiasa-gold"></span>
+
+                <span>Network Infrastructure</span>
+                <span class="hidden sm:block w-1 h-1 rounded-full bg-tiasa-gold"></span>
+
+                <span>System Integration</span>
+                <span class="hidden sm:block w-1 h-1 rounded-full bg-tiasa-gold"></span>
+
+                <span>Digital Transformation</span>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+        <!-- =========================================================
+             MAGANG
+        ========================================================== -->
+        <section id="magang" class="py-20 lg:py-28 bg-tiasa-navy text-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    
+                    <div class="reveal">
+                        <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Internship</span>
+                        <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+                            Learn. <span class="font-serif italic font-normal text-tiasa-gold">Build.</span> Grow.
+                        </h2>
+                        <p class="mt-4 text-slate-300 leading-relaxed max-w-xl">
+                            Program magang TIASA memberikan kesempatan bagi mahasiswa untuk belajar melalui pengalaman nyata dalam pengembangan teknologi.
+                        </p>
+
+                        <div class="mt-8 grid grid-cols-2 gap-4">
+                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+                                <i data-lucide="code-2" class="w-6 h-6 text-tiasa-gold mb-3"></i>
+                                <div class="font-bold text-white">Software</div>
+                                <div class="text-xs text-slate-400">Development</div>
+                            </div>
+                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+                                <i data-lucide="palette" class="w-6 h-6 text-tiasa-gold mb-3"></i>
+                                <div class="font-bold text-white">UI / UX</div>
+                                <div class="text-xs text-slate-400">Design</div>
+                            </div>
+                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+                                <i data-lucide="server" class="w-6 h-6 text-tiasa-gold mb-3"></i>
+                                <div class="font-bold text-white">Infrastructure</div>
+                                <div class="text-xs text-slate-400">IT & DevOps</div>
+                            </div>
+                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+                                <i data-lucide="bar-chart-3" class="w-6 h-6 text-tiasa-gold mb-3"></i>
+                                <div class="font-bold text-white">Analyst</div>
+                                <div class="text-xs text-slate-400">System & Data</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <a href="#kontak" class="inline-flex items-center gap-3 rounded-full bg-tiasa-gold px-7 py-4 text-sm font-bold text-tiasa-navy shadow-lg shadow-tiasa-gold/10 hover:bg-white transition duration-300">
+                                <span>Join Internship</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="reveal">
+                        <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-video lg:aspect-square">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85" alt="TIASA Internship" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             KARIR
+        ========================================================== -->
+        <section id="karir" class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="max-w-3xl reveal">
+                    <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Career</span>
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                        Build your career with technology.
+                    </h2>
+                    <p class="mt-4 text-slate-500 leading-relaxed">
+                        Kami membangun perusahaan bersama orang-orang yang memiliki semangat belajar, berkembang, dan menciptakan solusi teknologi.
+                    </p>
+                </div>
+
+                <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">Software Developer</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Development · Full Time</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">Mobile Developer</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Mobile · Full Time</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">System Analyst</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Business & System Analysis</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">Network / Infrastructure Engineer</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Infrastructure · Network</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">UI / UX Designer</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Design · Product</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                    <a href="#kontak" class="p-6 rounded-2xl border border-slate-200/80 bg-tiasa-cream/30 hover:bg-white hover:border-tiasa-gold hover:shadow-lg transition-all duration-300 flex items-center justify-between group reveal">
+                        <div>
+                            <h3 class="font-bold text-tiasa-navy text-lg group-hover:text-tiasa-gold transition">DBA / Data Engineer</h3>
+                            <p class="mt-1 text-xs text-slate-500 font-medium">Database · Data</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-tiasa-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             CTA / KONTAK
+        ========================================================== -->
+        <section id="kontak" class="py-20 lg:py-28 bg-tiasa-cream border-t border-slate-200/80">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+                <span class="text-xs uppercase tracking-widest font-bold text-tiasa-gold">Let's Build Something</span>
+                <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-tiasa-navy tracking-tight">
+                    Have an idea? <br><span class="font-serif italic font-normal text-tiasa-gold">Let's make it possible.</span>
+                </h2>
+                <p class="mt-4 text-slate-600 leading-relaxed max-w-xl mx-auto">
+                    Ceritakan kebutuhan bisnis dan teknologi Anda. Mari membangun solusi yang tepat bersama TIASA.
+                </p>
+                <div class="mt-8">
+                    <a href="https://wa.me/6282116096649" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 rounded-full bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-xl hover:bg-emerald-700 transition-all duration-300">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        <span>Start WhatsApp Chat</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             FOOTER
+        ========================================================== -->
+        <footer class="bg-tiasa-dark text-white pt-16 pb-12 border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+                    
+                    <!-- BRAND -->
+                    <div class="md:col-span-6">
+                        <img src="{% static 'logo.png' %}" alt="TIASA IT Solutions" class="h-12 w-auto brightness-0 invert">
+                        <p class="mt-4 text-sm text-slate-400 max-w-sm leading-relaxed">
+                            From Ideas to Systems, From Systems to Growth.<br>
+                            <span class="text-tiasa-gold font-medium">Making Ideas Possible.</span>
+                        </p>
+                    </div>
+
+                    <!-- NAVIGATION -->
+                    <div class="md:col-span-3">
+                        <h4 class="text-sm font-bold text-tiasa-gold uppercase tracking-wider">Navigation</h4>
+                        <ul class="mt-4 space-y-2.5 text-sm text-slate-400">
+                            <li><a href="#profil" class="hover:text-white transition">Profil</a></li>
+                            <li><a href="#personel" class="hover:text-white transition">Personel</a></li>
+                            <li><a href="#expertise" class="hover:text-white transition">Expertise</a></li>
+                            <li><a href="#portofolio" class="hover:text-white transition">Portofolio</a></li>
+                            <li><a href="#mitra" class="hover:text-white transition">Mitra</a></li>
+                            <li><a href="#magang" class="hover:text-white transition">Magang</a></li>
+                            <li><a href="#karir" class="hover:text-white transition">Karir</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- CONTACT -->
+                    <div class="md:col-span-3">
+                        <h4 class="text-sm font-bold text-tiasa-gold uppercase tracking-wider">Contact</h4>
+                        <ul class="mt-4 space-y-2.5 text-sm text-slate-400">
+                            <li>Tasikmalaya, Jawa Barat</li>
+                            <li><a href="mailto:hello@tiasa.id" class="hover:text-white transition">hello@tiasa.id</a></li>
+                            <li class="pt-2"><a href="https://wa.me/6282116096649" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-emerald-400 hover:underline font-semibold">WhatsApp Us →</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- COPYRIGHT -->
+                <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                    <p>© 2026 TIASA IT Solutions. All rights reserved.</p>
+                    <p>Together. Grow. We Care.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- =========================================================
+             JAVASCRIPT
+        ========================================================== -->
+        <script>
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Navbar Blur & Background effect on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const menuButton = document.getElementById('menuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+
+            menuButton.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    menuIcon.setAttribute('data-lucide', 'x');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                }
+                lucide.createIcons();
+            });
+
+            // Close Mobile Menu on Link Click
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                });
+            });
+
+            // Scroll Reveal Animation (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        </script>
+
+        <!-- Dynamic CSS for Navigation links -->
+        <style>
+            .nav-link {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.8125rem;
+                font-weight: 600;
+                color: #0B1528;
+                border-radius: 9999px;
+                transition: all 0.2s ease;
+            }
+            .nav-link:hover {
+                color: #C5A059;
+                background-color: rgba(197, 160, 89, 0.08);
+            }
+            .mobile-link {
+                display: block;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.9375rem;
+                font-weight: 600;
+                color: #0B1528;
+                border-radius: 0.5rem;
+                transition: background-color 0.2s ease;
+            }
+            .mobile-link:hover {
+                background-color: rgba(197, 160, 89, 0.1);
+                color: #C5A059;
+            }
+        </style>
+    </body>
+</html>
